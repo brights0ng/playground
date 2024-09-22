@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key":  {
+    "#":  {
+      "item": "minecraft:gold_ingot"
+    },
+    "@": {
+      "item": "minecraft:sugar_cane"
+    }
+  },
+  "pattern": [
+    " #@",
+    " # ",
+    "## "
+  ],
+  "result": {
+    "count": 1,
+    "id": "playground:smooth_jazz"
+  }
+}
