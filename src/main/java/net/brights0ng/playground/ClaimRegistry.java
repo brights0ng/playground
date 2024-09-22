@@ -6,22 +6,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClaimRegistry {
-    public final Map<ChunkPos, String> chunkClaimMap = new HashMap<>();
+    public static final Map<ChunkPos, String> chunkClaimMap = new HashMap<>();
 
-    public void claimChunk (String stateID, ChunkPos chunkPos){
+    public static void claimChunk (String stateID, ChunkPos chunkPos){
         chunkClaimMap.put(chunkPos, stateID);
     }
 
-    public void delChunk (String stateID, ChunkPos chunkPos){
+    public static void delChunk (String stateID, ChunkPos chunkPos){
         chunkClaimMap.remove(stateID,chunkPos);
     }
 
 
-    public String getState(ChunkPos chunkPos){
+    public static String getState(ChunkPos chunkPos){
         return chunkClaimMap.get(chunkPos);
     }
 
-    public boolean testChunk(ChunkPos chunkPos){
+    public static boolean testChunk(ChunkPos chunkPos){
         return chunkClaimMap.containsKey(chunkPos);
     }
 }

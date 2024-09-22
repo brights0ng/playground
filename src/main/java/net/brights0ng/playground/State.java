@@ -24,8 +24,8 @@ public class State {
     }
 
     public void addChunk(ChunkPos chunkPos){
-        if (!claimRegistry.testChunk(chunkPos)){
-            claimRegistry.claimChunk(this.stateID,chunkPos);
+        if (!ClaimRegistry.testChunk(chunkPos)){
+            ClaimRegistry.claimChunk(this.stateID,chunkPos);
             claimedChunks.add(chunkPos);
         }
     }
@@ -42,6 +42,26 @@ public class State {
 
     public void setOwner(UUID newOwner){
         this.owner = newOwner;
+    }
+
+    public UUID getOwner(){
+        return this.owner;
+    }
+
+    public String getStateID(){
+        return this.stateID;
+    }
+
+    public Set<UUID> getCitizens(){
+        return this.citizens;
+    }
+
+    public void addCitizen(UUID citizen){
+        this.citizens.add(citizen);
+    }
+
+    public void delCitizen(UUID citizen){
+        this.citizens.remove(citizen);
     }
 
 }
