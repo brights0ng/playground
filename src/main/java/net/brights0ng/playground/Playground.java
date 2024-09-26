@@ -1,10 +1,15 @@
 package net.brights0ng.playground;
 
+import net.brights0ng.playground.registries.BlockRegistry;
+import net.brights0ng.playground.registries.ClaimRegistry;
+import net.brights0ng.playground.registries.ImperiumRegistry;
+import net.brights0ng.playground.registries.StateRegistry;
 import net.brights0ng.playground.block.ModBlocks;
 import net.brights0ng.playground.item.ModItemGroups;
 import net.brights0ng.playground.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,15 +25,27 @@ public class Playground implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		StateRegistry.registerCommands();
+		ClaimRegistry.registerProtections();
+		BlockRegistry.registerBlockRegistry();
+		ImperiumRegistry.registerImperium();
 
+		// Call loadStateData when the server has fully started
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			System.out.println("Loading state data...");
+			StateRegistry.loadStateData(server);
+			ClaimRegistry.loadClaimData(server);
+		});
 
-
+		// Call saveStateData when the server stops
+		ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+			System.out.println("Saving state data...");
+			StateRegistry.saveStateData(server);
+			ClaimRegistry.saveClaimData(server);
+		});
 	}
 }
